@@ -2,9 +2,9 @@
 
 # Overview
 
-ローカルにあるリポジトリのコンポーネントを探索し、文脈に適したコンポーネントのソースコードを取得するための MCP Server です。
+ローカルにあるリポジトリのコンポーネントを検索し、コンポーネントの情報を取得するための MCP Server です。
 
-※ npm にまだ公開していません。
+※ まだ npm に公開していません。
 
 ## Installation
 
@@ -22,7 +22,7 @@ COMPONENTS_PATH=/path/to/your/front/repository/components
 
 ## Usage
 
-1. サーバーをビルドします。
+1. build MCP Server
 
 ```bash
 npm run build
