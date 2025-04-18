@@ -1,7 +1,7 @@
 {
   "name": "component-mcp-server",
   "version": "1.0.0",
-  "description": "MCPサーバーを使用してNext.jsリポジトリのコンポーネントを探索するサーバー",
+  "description": "MCPサーバーを使用してフロントコンポーネントを検索するサーバー",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
