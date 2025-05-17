@@ -26,7 +26,8 @@ server.tool(
   { query: z.string().describe("component name") },
   async ({ query }) => {
     try {
-      const componentFiles = await glob(`${componentsPath}/**/*.{tsx,jsx,js,ts}`);
+      const ignoreFiles = [`${componentsPath}/**/*.test.*`, `${componentsPath}**/*.spec.*`];
+      const componentFiles = await glob(`${componentsPath}/**/*.{tsx,jsx,js,ts}`, { ignore: ignoreFiles });
       const components = componentFiles.map((filePath) => {
         const relativePath = path.relative(componentsPath, filePath);
         const fileName = path.basename(filePath, path.extname(filePath));
