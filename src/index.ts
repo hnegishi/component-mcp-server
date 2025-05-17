@@ -21,6 +21,49 @@ const server = new McpServer({
 });
 
 server.tool(
+  "searchComponents",
+  "Search for components and retrieve their names and file paths.",
+  { query: z.string().describe("component name") },
+  async ({ query }) => {
+    try {
+      const componentFiles = await glob(`${componentsPath}/**/*.{tsx,jsx,js,ts}`);
+      const components = componentFiles.map((filePath) => {
+        const relativePath = path.relative(componentsPath, filePath);
+        const fileName = path.basename(filePath, path.extname(filePath));
+        return {
+          name: fileName,
+          path: relativePath
+        };
+      });
+      // queryで部分一致フィルタ（大文字小文字区別なし）
+      const filtered = query
+        ? components.filter(comp =>
+            comp.name.toLowerCase().includes(query.toLowerCase())
+          )
+        : components;
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(filtered, null, 2)
+          }
+        ]
+      };
+    } catch (error: any) {
+      console.error("Component search error:", error);
+      return {
+        content: [
+          {
+            type: "text",
+            text: `An error occurred: ${error.message}`
+          }
+        ]
+      };
+    }
+  }
+);
+
+server.tool(
   "getComponents",
   "Search for components and retrieve their source code.",
   { query: z.string().describe("component name") },
@@ -68,49 +111,6 @@ server.tool(
           {
             type: "text",
             text: JSON.stringify(sourceCodeArray, null, 2)
-          }
-        ]
-      };
-    } catch (error: any) {
-      console.error("Component search error:", error);
-      return {
-        content: [
-          {
-            type: "text",
-            text: `An error occurred: ${error.message}`
-          }
-        ]
-      };
-    }
-  }
-);
-
-server.tool(
-  "searchComponents",
-  "Search for components and retrieve their names and file paths.",
-  { query: z.string().describe("component name") },
-  async ({ query }) => {
-    try {
-      const componentFiles = await glob(`${componentsPath}/**/*.{tsx,jsx,js,ts}`);
-      const components = componentFiles.map((filePath) => {
-        const relativePath = path.relative(componentsPath, filePath);
-        const fileName = path.basename(filePath, path.extname(filePath));
-        return {
-          name: fileName,
-          path: relativePath
-        };
-      });
-      // queryで部分一致フィルタ（大文字小文字区別なし）
-      const filtered = query
-        ? components.filter(comp =>
-            comp.name.toLowerCase().includes(query.toLowerCase())
-          )
-        : components;
-      return {
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify(filtered, null, 2)
           }
         ]
       };
