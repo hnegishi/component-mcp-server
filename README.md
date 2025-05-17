@@ -33,7 +33,7 @@ npm run build
   "servers": {
     "component-mcp-server": {
       "command": "node",
-      "args": ["./dist/index.js"],
+      "args": ["./build/index.js"],
       "env": {
         "COMPONENTS_PATH": "/path/to/your/front/repository/components"
       }
@@ -52,7 +52,7 @@ npm run build
 component-mcp-server をテストおよびデバッグするための開発者ツールが立ち上がります。
 
 ```bash
-npx @modelcontextprotocol/inspector node ./dist/index.js
+npx @modelcontextprotocol/inspector node ./build/index.js
 ```
 
 ## 技術スタック
