@@ -45,7 +45,7 @@ npm run build
 ## Tools
 
 - `searchComponents` - コンポーネントを検索し、その名前とパスを取得します。
-- `getComponents` - コンポーネントのソースコードを取得します。
+- `getComponentInfo` - コンポーネントのソースコードを取得します。
 
 ## Debug
 
